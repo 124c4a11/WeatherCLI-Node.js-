@@ -42,3 +42,6 @@ psd
 node_modules/
 npm-debug.log
 .env
+
+# Project files
+weather-data.json
