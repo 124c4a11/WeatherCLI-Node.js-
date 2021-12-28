@@ -22,9 +22,26 @@ async function saveToken(token) {
 }
 
 
+async function saveCity(city) {
+  if (!city.length) {
+    printErr('Не передан city!');
+    return;
+  }
+
+  try {
+    await saveKeyValue(TOKEN_DICTIONARY.city, city);
+
+    printSuccess('Город сохранен!');
+  } catch (err) {
+    printErr(err.message);
+  }
+}
+
+
 async function getForecast() {
   try {
-    const weather = await getWeather('moscow');
+    const weather = await getWeather();
+
     console.log(weather);
   } catch (err) {
     switch (err?.response?.status) {
@@ -53,6 +70,11 @@ function InitCLI() {
 
   if (args.t) {
     saveToken(args.t);
+    return;
+  }
+
+  if (args.s) {
+    saveCity(args.s);
     return;
   }
 
