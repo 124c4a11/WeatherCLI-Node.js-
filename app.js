@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 
 import { getArgs } from './helpers/args.js';
-import { printHelp, printSuccess, printErr } from './services/log.service.js';
+import {
+  printHelp,
+  printSuccess,
+  printErr,
+  printWeather
+} from './services/log.service.js';
 import { saveKeyValue, TOKEN_DICTIONARY } from './services/storage.service.js';
-import { getWeather } from './services/api.service.js';
+import { getWeather, getIcon } from './services/api.service.js';
 
 
 async function saveToken(token) {
@@ -41,8 +46,9 @@ async function saveCity(city) {
 async function getForecast() {
   try {
     const weather = await getWeather();
+    const icon = getIcon(weather.weather[0].icon);
 
-    console.log(weather);
+    printWeather(weather, icon);
   } catch (err) {
     switch (err?.response?.status) {
       case 404:
