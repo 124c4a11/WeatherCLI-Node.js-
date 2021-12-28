@@ -5,6 +5,12 @@ import { join, resolve } from 'path';
 const filePath = join(resolve(), 'weather-data.json');
 
 
+export const TOKEN_DICTIONARY = {
+  token: 'token',
+  city: 'city'
+};
+
+
 async function isExist(path) {
   try {
     await promises.stat(path);
